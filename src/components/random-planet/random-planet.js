@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import SwapiService from '../../services/swapi-service.js'
+import SwapiService from '../../services/swapi-service'
 import Spinner from '../spinner/spinner'
+import ErrorIndicator from '../error-indicator/error-indicator'
 import './random-planet.css';
 
 export default class RandomPlanet extends Component {
@@ -15,28 +16,39 @@ export default class RandomPlanet extends Component {
   constructor() {
     super();
     this.updateRandomPlanet();
+   // setInterval(this.updateRandomPlanet, 1500);
   };
 
   onPlanetLoaded = (planet) => {
     this.setState({
       planet,
-      loading:false
+      loading:false,
+      error: false
     })
   };
 
-  updateRandomPlanet() {
-    const id = Math.floor(Math.random()*25+2);
+  onError = () => {
+    this.setState( {
+      error: true
+    })
+  }
+  updateRandomPlanet = () => {
+ //   const id = Math.floor(Math.random()*25+2);
+ const id = 13123;
       this.swapiService
         .getPlanet(id)
-        .then(this.onPlanetLoaded);
+        .then(this.onPlanetLoaded)
+        .catch(this.onError);
   }
 
   render() {
 
-    const { loading, planet } = this.state;
+    const { loading, planet, error } = this.state;
 
-    const spinner = loading ? <Spinner /> : null;
-    const content = !loading ? <PlanetView planet={planet}/> : null;
+    const hasError = !(error || loading);
+    const spinner = !error && loading ? <Spinner /> : null;
+    const content = hasError ? <PlanetView planet={planet}/> : null;
+    
       
     return (
       <div className="random-planet jumbotron rounded">
@@ -47,15 +59,15 @@ export default class RandomPlanet extends Component {
   }
 }
 
-const PlanetView = ( { planet } ) => {
-
-  const { name, population, rotationPeriod, 
-    diameter } = planet;
+const PlanetView = ({ planet }) => {
+  const { name, population, rotationPeriod, diameter } = planet;
 
   return (
     <React.Fragment>
-      <img className="planet-image"
-        src="https://starwars-visualguide.com/assets/img/planets/5.jpg" />
+      <img
+        className="planet-image"
+        src="https://starwars-visualguide.com/assets/img/planets/5.jpg"
+      />
       <div>
         <h4>{name}</h4>
         <ul className="list-group list-group-flush">
@@ -74,7 +86,7 @@ const PlanetView = ( { planet } ) => {
         </ul>
       </div>
     </React.Fragment>
-  )
-}
+  );
+};
 
 
