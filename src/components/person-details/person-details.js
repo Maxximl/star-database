@@ -14,11 +14,11 @@ export default class PersonDetails extends Component {
   }
 
   componentDidMount() {
-   // this.updatePerson();
+    // this.updatePerson();
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.id !== prevProps.id ) {
+    if (this.props.id !== prevProps.id) {
       this.updatePerson();
     }
   }
@@ -28,42 +28,43 @@ export default class PersonDetails extends Component {
       loading: true
     })
     const { id } = this.props;
-    if(!id) 
+    if (!id)
       return;
 
-     this.swapi.getPerson(id)
+    this.swapi.getPerson(id)
       .then((person) => {
         this.setState({
           person,
-          loading:false })
+          loading: false
+        })
       });
   }
 
   render() {
 
-    const {loading, person} = this.state;
+    const { loading, person } = this.state;
 
-    const spinner = loading ? <Spinner/> : null;
+    const spinner = loading ? <Spinner /> : null;
 
-    const isPersonNotSelected = !person ? 
-          <span>Selected Person From List!</span>  :
-          null;
-    if(isPersonNotSelected) return isPersonNotSelected;
+    const isPersonNotSelected = !person ?
+      <span>Selected Person From List!</span> :
+      null;
+    if (isPersonNotSelected) return isPersonNotSelected;
 
-    const personDetails = (!loading && !person) ? personDetailsView(this.state.person) : null;
+    const personDetails = (!loading && person) ? personDetailsView(this.state.person) : null;
 
     return (
       <div className="person-details card">
         {spinner}
         {isPersonNotSelected}
-        {personDetailsView}
+        {personDetails}
       </div>
     )
   }
 }
 
-const personDetailsView = ({id, name, gender, birthYear, eyeColor}) => {
- return ( <React.Fragment>
+const personDetailsView = ({ id, name, gender, birthYear, eyeColor }) => {
+  return (<React.Fragment>
     <img className="person-image"
       src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
 
@@ -85,5 +86,5 @@ const personDetailsView = ({id, name, gender, birthYear, eyeColor}) => {
       </ul>
     </div>
   </React.Fragment>
- )
+  )
 }
