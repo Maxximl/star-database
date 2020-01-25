@@ -17,6 +17,19 @@ export default class ItemList extends Component {
       });
   }
 
+  renderItemList(peopleList) {
+    const people = peopleList.map((item) => {
+      const {id} = item;
+        return (
+          <li className="list-group-item"
+            key={id}
+            onClick={() => this.props.onItemSelected(id)}>
+            {this.props.children(item)}
+          </li>
+        )
+      });
+      return people;
+}
 
   render() {
 
@@ -27,7 +40,7 @@ export default class ItemList extends Component {
 
     return (
       <ul className="item-list list-group">
-        {this.props.renderItemList(itemList)}
+        {this.renderItemList(itemList)}
       </ul>
     );
   }

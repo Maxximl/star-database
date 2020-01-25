@@ -1,37 +1,57 @@
 import React, { Component } from 'react';
 
 import  './person-page.css';
-import ItemList from '../item-list'
-import PersonDetails from '../person-details'
+import ItemList from '../item-list';
+import PersonDetails from '../person-details';
+import Row from '../row';
+import ErrorIndicator from '../error-indicator/error-indicator';
+
+
+class ErrorBoundary extends Component {
+
+    state = {
+        hasError: false
+    }
+
+    componentDidCatch() {
+        this.setState({
+            hasError: true
+        })
+    }
+    render() {
+        if(this.state.hasError) {
+            return <ErrorIndicator/>
+        }
+        return this.props.children;
+    }
+    
+}
 
 export default class PersonPage extends Component {
 
-    renderItemList = (peopleList) => {
-        const people = peopleList.map(({ id, name, gender }) => {
-            return (
-              <li className="list-group-item"
-                key={id}
-                onClick={() => this.props.onPersonSelected(id)}>
-                {name}
-                {` -----${gender}`}
-              </li>
-            )
-          });
-          return people;
-    }
+
 
     render() {
+
+        const itemList = (
+            <ItemList 
+                getData={this.props.getData}
+                onItemSelected={this.props.onPersonSelected} >
+
+            {(i) => `${i.name}, ${i.birthYear}`} 
+            </ItemList>
+        );
+        const personDetails = (
+            <ErrorBoundary>
+                <PersonDetails id={this.props.selectedPerson} />
+            </ErrorBoundary>
+        )
+
         return (
-            <div className="row mb2">
-                <div className="col-md-6">
-                    <ItemList 
-                        getData={this.props.getData}
-                        renderItemList={this.renderItemList} />
-                </div>
-                <div className="col-md-6">
-                    <PersonDetails id={this.props.selectedPerson} />
-                </div>
-            </div>
+           
+            <Row left={itemList}
+                 right={personDetails} />
+           
         );
     }
 }
