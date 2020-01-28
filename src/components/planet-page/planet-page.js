@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './planet-page.css';
 import ItemList from '../item-list'
-import PersonDetails from '../person-details'
+import ItemDetails from '../item-details'
 import Row from '../row'
 
 export default class PlanetPage extends Component {
@@ -20,7 +20,9 @@ export default class PlanetPage extends Component {
         );
 
         const personDetails = (
-            <PersonDetails id={this.props.selectedPlanet} />
+            <ItemDetails id={this.props.selectedPlanet}
+                getData={this.props.getDetails}
+                getImgUrl={this.props.getImagePlanet}/>
         );
 
         return (

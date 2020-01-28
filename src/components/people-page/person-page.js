@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 
 import  './person-page.css';
 import ItemList from '../item-list';
-import PersonDetails from '../person-details';
+import ItemDetails from '../item-details';
 import Row from '../row';
 import ErrorIndicator from '../error-indicator/error-indicator';
 
 
-class ErrorBoundary extends Component {
+class ErrorBoundary extends Component { // TODO перенести в отдельный компонент
 
     state = {
         hasError: false
@@ -29,8 +29,6 @@ class ErrorBoundary extends Component {
 
 export default class PersonPage extends Component {
 
-
-
     render() {
 
         const itemList = (
@@ -43,7 +41,9 @@ export default class PersonPage extends Component {
         );
         const personDetails = (
             <ErrorBoundary>
-                <PersonDetails id={this.props.selectedPerson} />
+                <ItemDetails id={this.props.selectedPerson}
+                    getData={this.props.getDetails} 
+                    getImgUrl={this.props.getImagePeople}/>
             </ErrorBoundary>
         )
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import  './starship-page.css';
 import ItemList from '../item-list'
-import PersonDetails from '../person-details'
+import ItemDetails from '../item-details'
 
 export default class StarshipPage extends Component {
 
@@ -20,7 +20,9 @@ export default class StarshipPage extends Component {
                     </ItemList>
                 </div>
                 <div className="col-md-6">
-                    <PersonDetails id={this.props.selectedStarship} />
+                    <ItemDetails id={this.props.selectedStarship}
+                        getData={this.props.getDetails}
+                        getImgUrl={this.props.getImageStarship} />
                 </div>
             </div>
         );

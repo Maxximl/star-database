@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 
 export default class ErrorButton extends Component {
 
@@ -9,12 +9,12 @@ export default class ErrorButton extends Component {
 
     render() {
 
-        if(this.state.renderError) {
+        if (this.state.renderError) {
             this.foo.barr = 0;
         }
         return (
-        <button className="btn btn-danger" 
-            onClick={ () => this.setState({renderError: true}) }>
+            <button className="btn btn-danger"
+                onClick={() => this.setState({ renderError: true })}>
                 Throw Error
         </button>
         );

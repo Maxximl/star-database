@@ -37,27 +37,37 @@ export default class App extends Component {
   };
 
   render() {
+
+    const { getPerson, getPlanet, getStarship,
+            getAllPlanets, getAllPeople, getAllStarships,
+            getImagePeople, getImagePlanet, getImageStarship } = this.swapiService;
     return (
       <div>
         <Header />
         <RandomPlanet />
 
         <PersonPage 
-          getData={this.swapiService.getAllPeople}
+          getData={getAllPeople}
           onPersonSelected={this.onPersonSelected}
-          selectedPerson={this.state.selectedPerson} 
+          selectedPerson={this.state.selectedPerson}
+          getDetails={getPerson}
+          getImagePeople={getImagePeople}
         />
 
         <StarshipPage
-          getData={this.swapiService.getAllStarships}
+          getData={getAllStarships}
           onStarshipSelected={this.onStarshipSelected}
           selectedStarship={this.state.selectedStarship}
+          getDetails={getStarship}
+          getImageStarship={getImageStarship}
         />
 
         <PlanetPage
-          getData={this.swapiService.getAllPlanets}
+          getData={getAllPlanets}
           onPlanetSelected={this.onPlanetSelected}
           selectedPlanet={this.state.selectedPlanet}
+          getDetails={getPlanet}
+          getImagePlanet={getImagePlanet}
         />
       </div>
     );
