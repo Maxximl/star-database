@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 
 import  './person-page.css';
 import ItemList from '../item-list';
-import ItemDetails from '../item-details';
+import ItemDetails, {Record} from '../item-details';
 import Row from '../row';
 import ErrorIndicator from '../error-indicator/error-indicator';
+
 
 
 class ErrorBoundary extends Component { // TODO перенести в отдельный компонент
@@ -40,11 +41,15 @@ export default class PersonPage extends Component {
             </ItemList>
         );
         const personDetails = (
-            <ErrorBoundary>
+            
                 <ItemDetails id={this.props.selectedPerson}
                     getData={this.props.getDetails} 
-                    getImgUrl={this.props.getImagePeople}/>
-            </ErrorBoundary>
+                    getImgUrl={this.props.getImagePeople}>
+
+                     <Record field="gender" label="Gender" />
+                     <Record field="eyeColor" label="Eye Color" />
+                </ItemDetails>
+            
         )
 
         return (
