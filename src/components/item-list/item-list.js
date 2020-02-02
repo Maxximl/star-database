@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import SwapiService from '../../services/swapi-service'
 import './item-list.css';
 import Spinner from '../spinner/spinner';
 
 export default class ItemList extends Component {
-
 
   state = {
     itemList: null
