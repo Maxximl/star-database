@@ -8,21 +8,29 @@ import Row from '../row';
 
 export default class StarshipPage extends Component {
 
-
+    state = {
+        selectedStarship: null
+      };
+    
+      onStarshipSelected = id => {
+        this.setState({
+          selectedStarship: id
+        });
+      };
 
     render() {
 
         const itemList = (
             <ItemList 
                 getData={this.props.getData} 
-                onItemSelected={this.props.onStarshipSelected} >
+                onItemSelected={this.onStarshipSelected} >
             
             { (i) => `${i.name}, ${i.model}` }
             
             </ItemList>);
 
         const itemDetails = (
-            <ItemDetails id={this.props.selectedStarship}
+            <ItemDetails id={this.state.selectedStarship}
                 getData={this.props.getDetails}
                 getImgUrl={this.props.getImageStarship} >
             

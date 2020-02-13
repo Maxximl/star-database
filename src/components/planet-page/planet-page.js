@@ -8,19 +8,29 @@ import Row from '../row'
 
 export default class PlanetPage extends Component {
 
+    state = {
+        selectedPlanet: null
+      };
+    
+      onPlanetSelected = id => {
+        this.setState({
+          selectedPlanet: id
+        });
+      };
+
     render() {
 
         const itemList = (
             <ItemList
                 getData={this.props.getData}
-                onItemSelected={this.props.onPlanetSelected} >
+                onItemSelected={this.onPlanetSelected} >
 
             {(i) => (`${i.name}, ${i.diameter}`)}
             </ItemList>
         );
 
         const itemDetails = (
-            <ItemDetails id={this.props.selectedPlanet}
+            <ItemDetails id={this.state.selectedPlanet}
                 getData={this.props.getDetails}
                 getImgUrl={this.props.getImagePlanet}>
 
