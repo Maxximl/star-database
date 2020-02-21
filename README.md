@@ -1,5 +1,1 @@
-- Axios
-- Superagent
-- Got
-- Request
-- Reqwest
+https://maxximl.github.io/star-database/
