@@ -1,48 +1,33 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import  './person-page.css';
-import ItemList from '../item-list';
-import ItemDetails, {Record} from '../item-details';
-import Row from '../row';
-
+import "./person-page.css";
+import { PersonList } from "../../components/sw-component";
+import { Record } from "../item-details";
+import Row from "../row";
+import { PersonDetails } from '../../components/sw-component';
 
 export default class PersonPage extends Component {
+  state = {
+    selectedPerson: null
+  };
 
-    state = {
-        selectedPerson: null
-      };
-    
-      onPersonSelected = id => {
-        this.setState({
-          selectedPerson: id
-        });
-      };
+  onPersonSelected = id => {
+    this.setState({
+      selectedPerson: id
+    });
+  };
 
-    render() {
+  render() {
+    const itemList = (
+      <PersonList onItemSelected={this.onPersonSelected} />
+      );
+    const personDetails = (
+      <PersonDetails id={this.state.selectedPerson}>
+        <Record field="gender" label="Gender" />
+        <Record field="eyeColor" label="Eye Color" />
+      </PersonDetails>
+    );
 
-        const itemList = (
-            <ItemList 
-                getData={this.props.getData}
-                onItemSelected={this.onPersonSelected} >
-
-            {(i) => `${i.name}, ${i.birthYear}`} 
-            </ItemList>
-        );
-        const personDetails = (
-
-                <ItemDetails id={this.state.selectedPerson}
-                    getData={this.props.getDetails} 
-                    getImgUrl={this.props.getImagePeople}>
-
-                     <Record field="gender" label="Gender" />
-                     <Record field="eyeColor" label="Eye Color" />
-                </ItemDetails>
-            
-        )
-
-        return (           
-            <Row left={itemList}
-                 right={personDetails} /> 
-        );
-    }
+    return <Row left={itemList} right={personDetails} />;
+  }
 }
