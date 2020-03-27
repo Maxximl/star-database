@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import ItemDetails, { Record } from "../item-details";
 import "./starship-page.css";
-import { StarshipList } from "../../components/sw-component";
+import { StarshipList, StarshipDetails } from "../../components/sw-component";
+
 
 import Row from "../row";
 
@@ -20,12 +21,12 @@ export default class StarshipPage extends Component {
     const itemList = <StarshipList onItemSelected={this.onStarshipSelected} />;
 
     const itemDetails = (
-      <ItemDetails
+      <StarshipDetails
         id={this.state.selectedStarship} >
         <Record field="model" label="Model" />
         <Record field="manufacturer" label="Manufacturer" />
         <Record field="length" label="Length" />
-      </ItemDetails>
+      </StarshipDetails>
     );
 
     return <Row left={itemList} right={itemDetails} />;

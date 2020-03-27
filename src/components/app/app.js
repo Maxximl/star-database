@@ -6,7 +6,7 @@ import PersonPage from "../people-page";
 import StarshipPage from "../starships-page";
 import SwapiService from "../../services/swapi-service";
 import PlanetPage from "../planet-page/planet-page";
-
+import { SwapiServiceProvider } from '../swapi-service-context';
 import "./app.css";
 
 
@@ -17,6 +17,7 @@ export default class App extends Component {
 
     return (
       <div>
+        <SwapiServiceProvider value={this.swapiService}>
         <Header />
         <RandomPlanet />
 
@@ -25,6 +26,7 @@ export default class App extends Component {
         <StarshipPage />
 
         <PlanetPage />
+        </SwapiServiceProvider>
       </div>
     );
   }

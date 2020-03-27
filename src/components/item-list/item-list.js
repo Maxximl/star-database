@@ -5,7 +5,7 @@ const  ItemList = (props) => {
 
   const { data, onItemSelected, children: renderLabel } = props;
   function renderItemList(data) {
-    const people = data.map((item) => {
+    const elements = data.map((item) => {
       const {id} = item;
         return (
           <li className="list-group-item"
@@ -15,7 +15,7 @@ const  ItemList = (props) => {
           </li>
         )
       });
-      return people;
+      return elements;
     }
 
   

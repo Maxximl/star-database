@@ -2,7 +2,8 @@ import React, { Component } from "react";
 
 import "./planet-page.css";
 import { PlanetList } from "../../components/sw-component";
-import ItemDetails, { Record } from "../item-details";
+import  { Record } from "../item-details";
+import { PlanetDetails } from '../../components/sw-component';
 import Row from "../row";
 
 export default class PlanetPage extends Component {
@@ -14,17 +15,18 @@ export default class PlanetPage extends Component {
     this.setState({
       selectedPlanet: id
     });
+    console.log('planet clicked');
   };
 
   render() {
     const itemList = <PlanetList onItemSelected={this.onPlanetSelected} />;
 
     const itemDetails = (
-      <ItemDetails
+      <PlanetDetails
         id={this.state.selectedPlanet} >
         <Record field="diameter" label="Diameter" />
         <Record field="rotationPeriod" label="Rotation Period" />
-      </ItemDetails>
+      </PlanetDetails>
     );
 
     return <Row left={itemList} right={itemDetails} />;
